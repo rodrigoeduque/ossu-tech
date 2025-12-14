@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ossutech_db
+    username: ossutech
+    password: ossutech123
+
+logging:
+  level:
+    com.ossutech: DEBUG

@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ossutech-postgres
+    environment:
+      POSTGRES_DB: ossutech_db
+      POSTGRES_USER: ossutech
+      POSTGRES_PASSWORD: ossutech123
+      # Melhora performance em desenvolvimento
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=pt_BR.UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ossutech-network
+    # Healthcheck para garantir que está pronto
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ossutech -d ossutech_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  ossutech-network:
+    driver: bridge
