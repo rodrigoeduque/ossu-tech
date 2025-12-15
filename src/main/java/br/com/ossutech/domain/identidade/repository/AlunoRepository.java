@@ -15,6 +15,8 @@ public interface AlunoRepository {
 
     Optional<Aluno> buscarPorCpf(CPF cpf);
 
+    Optional<Aluno> buscarPorUsuarioId(UUID usuarioId);
+
     List<Aluno> listarTodos();
 
     List<Aluno> listarAtivos();
@@ -23,4 +25,5 @@ public interface AlunoRepository {
 
     void deletar(UUID id);
 
+    boolean existePorCpf(CPF cpf);
 }
