@@ -10,17 +10,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate  # Flyway vai gerenciar o schema
+      ddl-auto: validate  # Valida se schema existe
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    # IMPORTANTE: Hibernate espera o Flyway
+    defer-datasource-initialization: false
 
   flyway:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
+    # IMPORTANTE: Validar conexões antes
+    validate-on-migrate: true
 
 server:
   port: 8080
@@ -32,3 +36,4 @@ logging:
   level:
     com.ossutech: DEBUG
     org.hibernate.SQL: DEBUG
+    org.flywaydb: DEBUG  # Ver logs do Flyway
